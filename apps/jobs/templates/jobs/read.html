@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JobViewer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="description" content="job TV job data">
+
+</head>
+<body>
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red;">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <h1>Job{{this_job.id}}</h1>
+    <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-9 px-0">
+                <h4>Job</h2>
+                <h3 class="display-4 font-italic">{{ this_job.title }}</h4>
+                <h4>Location</h2>
+                <h4 class="display-5 font-italic">{{ this_job.location }}</h4>
+                <h4>Posted On</h2>
+                <h4 class="display-5 font-italic">{{ this_job.created_at }}</h4>
+                <h4>Categories:</h2>
+                <h4 class="display-5 font-italic">{{ this_job.job_type }}</h4>
+        </div>
+        <div class="col-md-12">
+            <p>{{ this_job.description }}</p>
+            <p>Last Updated: {{ this_job.updated_at }}</p>
+        </div>
+        <div class="row justify-content-between">
+        <p class="lead mb-0"><a href="/jobs/edit/{{ this_job.id }}/"class="text-white font-weight-bold">Edit job</a></p>
+        {% if this_job.job_poster.id == request.session.id %}
+        <p class="lead mb-0"><a href="/jobs/delete/{{ this_job.id }}/"class="text-white font-weight-bold">Delete Job</a></p>
+        {% endif %}
+        <p class="lead mb-0"><a href="/dashboard" class="text-white font-weight-bold">Back To Home</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
